@@ -1,0 +1,26 @@
+Requeriments' projects:
+    1- Uplode file to Google Drive
+    2- Download file from Google Drive
+
+Start date: 29/04/2022
+
+Não deixar credenciais publicas
+add o git ignore para esconder arquivos de credenciais
+
+crie arquivos de requirements.txt
+para mostrar as versões e links q utilizo
+asdf 
+asdf list
+
+pip freeze mostra as dependencias do meu projeto
+
+pip -r requiriments.Requeriment.txt
+
+folder_id vai para o ambiente. importe  e use config("folder_id")
+
+métodos privados não irá exibir para usar na classe e indica que nao deve ser alterado
+
+desafio: transformar em um cli essa api
+dica: python fire
+
+estudar funcao init
