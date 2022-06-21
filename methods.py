@@ -1,11 +1,16 @@
+from pandas import get_option
 from pydrive.drive import GoogleDrive
 from pydrive.auth import GoogleAuth
 import os
 
 class ApiDrive:    
 
-    def authentication():
+    # def __init__(self, credentials, folder_id):
+    #     self.credentials = credentials
+    #     self.folder_id = folder_id
 
+    def authentication():
+        
         try:
 
             gauth = GoogleAuth()
@@ -20,16 +25,17 @@ class ApiDrive:
                 gauth.Authorize()
             gauth.SaveCredentialsFile('my_credentials.json')
 
-            drive = GoogleDrive(gauth)
-            return drive
+            return GoogleDrive(gauth)
+ 
         
         except:
             print("\nErro a autenticar credencial.")
 
-    def upload(drive, folder_id):
+    def upload(folder_id):
         #to do: to acess files into folder and send to drive
         
         try: 
+            drive = ApiDrive.authentication()
             path = "./files_to_upload"
             file = input("Qual arquivo você quer enviar? ")
             upload_file = os.path.join(path, file)
@@ -43,23 +49,26 @@ class ApiDrive:
         except e:
             print(e + "\n")
     
-    def list_files(drive, folder_id):
+    def list_files(folder_id):
         #todo: list all files inside a google drive folder
 
         try:
-        
+            drive = ApiDrive.authentication()
+            
             file_list = drive.ListFile({'q': "'{}' in parents and trashed=false".format(folder_id)}).GetList()
 
             for file in file_list:
                 print('Nome: %s, id: %s\n' % (file['title'], file['id']))
 
-       
+    
         except:
             print("\nErro ao listar arquivos.")
 
-    def download(drive, folder_id):
+    def download(folder_id):
         #todo: download files from google drive
         try:
+            drive = ApiDrive.authentication()
+
             file_list = drive.ListFile({'q': "'{}' in parents and trashed=false".format(folder_id)}).GetList()
             
             for file in file_list:
@@ -69,11 +78,13 @@ class ApiDrive:
         except:
             print("\nErro ao baixar arquivos.")
     
-    def create_file(drive, folder_id):
+    def create_file(folder_id):
         #todo: create a file into google drive
         
         try: 
             
+            drive = ApiDrive.authentication()
+
             file = drive.CreateFile({'parents': [{'id': folder_id}], 'title': 'file.txt'})
             file.SetContentString("Olá, Mundo!")
             file.Upload()

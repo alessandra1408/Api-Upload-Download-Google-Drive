@@ -1,6 +1,9 @@
 from time import sleep
 from methods import ApiDrive
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 
 def menu():
     print("\n[a] Listar Arquivos no Google Drive")
@@ -22,21 +25,19 @@ option = input("\nDigite sua opção: ")
 
 
 while option != 's':
+    folder_id = os.getenv('folder_id')
     
-    drive = ApiDrive.authentication()
-    folder_id = '1O421lpvoVYrzlm8xCa_HT0-x_zVMXy7z'
-
     if option == 'b':
-        ApiDrive.upload(drive, folder_id)
-    elif option == 'a':
+        ApiDrive.upload(folder_id)
+    if option == 'a':
         print("--------------------------")
         print("\n")
-        ApiDrive.list_files(drive, folder_id)
+        ApiDrive.list_files(folder_id)
         print("--------------------------")
     elif option == 'c':
-        ApiDrive.download(drive, folder_id)
+        ApiDrive.download(folder_id)
     elif option == 'd':
-        ApiDrive.create_file(drive, folder_id) 
+        ApiDrive.create_file(folder_id) 
     else:
         print("\nOpção inválida.\n")
     
