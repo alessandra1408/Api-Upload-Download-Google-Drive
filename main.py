@@ -26,18 +26,20 @@ option = input("\nDigite sua opção: ")
 
 while option != 's':
     folder_id = os.getenv('folder_id')
+    drive = ApiDrive.authentication()
     
-    if option == 'b':
-        ApiDrive.upload(folder_id)
     if option == 'a':
         print("--------------------------")
         print("\n")
-        ApiDrive.list_files(folder_id)
+        ApiDrive.list_files(drive, folder_id)
         print("--------------------------")
+    elif option == 'b':
+        ApiDrive.upload(drive, folder_id)
+    
     elif option == 'c':
-        ApiDrive.download(folder_id)
+        ApiDrive.download(drive, folder_id)
     elif option == 'd':
-        ApiDrive.create_file(folder_id) 
+        ApiDrive.create_file(drive, folder_id) 
     else:
         print("\nOpção inválida.\n")
     
