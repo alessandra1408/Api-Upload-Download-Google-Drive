@@ -1,4 +1,5 @@
 from ast import Try
+import os
 from pandas import get_option
 from pydrive.drive import GoogleDrive
 from pydrive.auth import GoogleAuth
@@ -17,7 +18,7 @@ class ApiDrive:
 
             gauth = GoogleAuth()
 
-            # reads file with credentials. If the credentials are null, it will ask to authorize and save them. If it has expired, it will refresh. Then, it will save the credentials in onde file.
+            # reads file with credentials. If the credentials are null, it will ask to authorize and save them. If it has expired, it will refresh. Then, it will save the credentials in one file.
             gauth.LoadCredentialsFile('my_credentials.json')
             if gauth.credentials is None:
                 gauth.LocalWebserverAuth()
